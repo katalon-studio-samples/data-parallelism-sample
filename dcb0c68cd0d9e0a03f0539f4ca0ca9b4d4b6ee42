@@ -1,0 +1,26 @@
+.gitignore
+  bc1e2d9646c9d5eb 1-13,15-16,18-19,21-22,24-25,27-28
+CLAUDE.md
+  bc1e2d9646c9d5eb 1-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "dcb0c68cd0d9e0a03f0539f4ca0ca9b4d4b6ee42",
+  "prompts": {
+    "bc1e2d9646c9d5eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725c320d-f9ac-4472-b193-d33cafceb452",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 88,
+      "total_deletions": 13,
+      "accepted_lines": 88,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/18f3373960b2af92f11fcefb33aa492ca743b9ddaa87a72ef1477f2b206cc26a"
+    }
+  }
+}
