@@ -9,18 +9,19 @@ Katalon's test suite data binding runs rows sequentially. A suite with 100 rows 
 ## How It Works
 
 ```
-Source Test Suite (10 rows)
-        │
-        ▼  "Create Parallel Suites" (N=3)
-┌───────┼───────┐
-▼       ▼       ▼
-Partition 1   Partition 2   Partition 3
-rows 1-4      rows 5-7      rows 8-10
-   │             │              │
-   └─────────────┴──────────────┘
-                 │
-        Parallel Collection
-      (3 concurrent instances)
+        Source Test Suite (10 rows)
+                  │
+                  ▼
+     "Create Parallel Suites" (N=3)
+        ┌─────────┼─────────┐
+        ▼         ▼         ▼
+   Partition 1  Partition 2  Partition 3
+    rows 1–4    rows 5–7    rows 8–10
+        │         │         │
+        └─────────┼─────────┘
+                  ▼
+         Parallel Collection
+       (3 concurrent instances)
 ```
 
 The utility reads your source test suite, counts the bound data rows (using Katalon's `findTestData()` API — works with any data source type), divides them into balanced ranges, and generates:
