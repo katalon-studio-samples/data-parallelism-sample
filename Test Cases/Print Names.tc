@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>Print Names</name>
+   <tag></tag>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>4b51e177-4988-4e30-a60c-41ab88a43f02</testCaseGuid>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>b45451eb-9b17-427f-95ad-2930b1437299</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>dc5843cf-c4e3-4d6e-8a1f-d37d0567a2f4</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>9191d3cd-6f4b-41bc-bdd4-8e43622a1dd8</variableId>
+   </variableLinks>
+   <variable>
+      <defaultValue>'DefaultFirst'</defaultValue>
+      <description></description>
+      <id>b45451eb-9b17-427f-95ad-2930b1437299</id>
+      <masked>false</masked>
+      <name>firstName</name>
+   </variable>
+   <variable>
+      <defaultValue>'DefaultLast'</defaultValue>
+      <description></description>
+      <id>dc5843cf-c4e3-4d6e-8a1f-d37d0567a2f4</id>
+      <masked>false</masked>
+      <name>lastName</name>
+   </variable>
+   <variable>
+      <defaultValue>'default@default.com'</defaultValue>
+      <description></description>
+      <id>9191d3cd-6f4b-41bc-bdd4-8e43622a1dd8</id>
+      <masked>false</masked>
+      <name>email</name>
+   </variable>
+</TestCaseEntity>

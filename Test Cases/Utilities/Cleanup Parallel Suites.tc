@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Removes generated partitioned test suites and collection created by Create Parallel Suites.</description>
+   <name>Cleanup Parallel Suites</name>
+   <tag>GenAI</tag>
+   <comment></comment>
+   <origin>STUDIOASSIST</origin>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>f5181f90-f237-4a1f-a891-0317a0cd9cfb</testCaseGuid>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>b2c3d4e5-0001-4000-8000-000000000001</variableId>
+   </variableLinks>
+   <variable>
+      <defaultValue>'Test Suites/Generated'</defaultValue>
+      <description>Folder containing generated suites to delete</description>
+      <id>b2c3d4e5-0001-4000-8000-000000000001</id>
+      <masked>false</masked>
+      <name>generatedFolder</name>
+   </variable>
+</TestCaseEntity>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Creates N partitioned test suite copies from a source test suite with full data bindings, and generates a parallel test suite collection.</description>
+   <name>Create Parallel Suites</name>
+   <tag>GenAI</tag>
+   <comment></comment>
+   <origin>STUDIOASSIST</origin>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>feb831cf-1cbe-4792-a0fd-769e79a5f979</testCaseGuid>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>a1b2c3d4-0001-4000-8000-000000000001</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>a1b2c3d4-0001-4000-8000-000000000002</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>a1b2c3d4-0001-4000-8000-000000000003</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>a1b2c3d4-0001-4000-8000-000000000004</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>a1b2c3d4-0001-4000-8000-000000000005</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>a1b2c3d4-0001-4000-8000-000000000006</variableId>
+   </variableLinks>
+   <variable>
+      <defaultValue>'Test Suites/Print Names'</defaultValue>
+      <description>Path to the source test suite with full data bindings</description>
+      <id>a1b2c3d4-0001-4000-8000-000000000001</id>
+      <masked>false</masked>
+      <name>sourceTestSuiteId</name>
+   </variable>
+   <variable>
+      <defaultValue>3</defaultValue>
+      <description>Number of parallel partitions to create</description>
+      <id>a1b2c3d4-0001-4000-8000-000000000002</id>
+      <masked>false</masked>
+      <name>numberOfPartitions</name>
+   </variable>
+   <variable>
+      <defaultValue>'Test Suites/Generated'</defaultValue>
+      <description>Output folder for generated suites (e.g., Test Suites/Generated)</description>
+      <id>a1b2c3d4-0001-4000-8000-000000000003</id>
+      <masked>false</masked>
+      <name>outputFolder</name>
+   </variable>
+   <variable>
+      <defaultValue>''</defaultValue>
+      <description>Name for the generated collection (auto-derived if empty)</description>
+      <id>a1b2c3d4-0001-4000-8000-000000000004</id>
+      <masked>false</masked>
+      <name>collectionName</name>
+   </variable>
+   <variable>
+      <defaultValue>'Chrome'</defaultValue>
+      <description>Browser for execution</description>
+      <id>a1b2c3d4-0001-4000-8000-000000000005</id>
+      <masked>false</masked>
+      <name>browser</name>
+   </variable>
+   <variable>
+      <defaultValue>'default'</defaultValue>
+      <description>Execution profile name</description>
+      <id>a1b2c3d4-0001-4000-8000-000000000006</id>
+      <masked>false</masked>
+      <name>profileName</name>
+   </variable>
+</TestCaseEntity>

@@ -1,0 +1,28 @@
+# Katalon build artifacts
+bin/
+build/
+Libs/
+.gradle/
+
+# Generated parallel suites (output of the utility — regenerate, don't track)
+Test Suites/Generated/
+
+# IDE metadata
+.classpath
+.project
+.settings/
+
+# Reports (local execution output)
+Reports/
+
+# macOS
+.DS_Store
+
+# Katalon cache
+.cache/
+
+# Console properties (may contain environment-specific paths/tokens)
+console.properties
+
+# Claude Code local config
+.claude/
