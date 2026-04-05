@@ -1,0 +1,24 @@
+README.md
+  bc1e2d9646c9d5eb 12-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "f6a5ef2ed89bec4426f602619f2bc43fc124a4c1",
+  "prompts": {
+    "bc1e2d9646c9d5eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725c320d-f9ac-4472-b193-d33cafceb452",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 13,
+      "total_deletions": 12,
+      "accepted_lines": 13,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/0fc0768d8717b0e0929eee3f2c9a52892aab3315dc18c4f42e7fef052452c3db"
+    }
+  }
+}
