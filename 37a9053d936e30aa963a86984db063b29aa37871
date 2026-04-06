@@ -1,0 +1,34 @@
+"Test Suites/Utilities/Generate Sample Users.ts"
+  bc1e2d9646c9d5eb 1-33
+"Test Cases/Utilities/Generate Sample Users.tc"
+  bc1e2d9646c9d5eb 1-21,23-35
+build.gradle
+  bc1e2d9646c9d5eb 11
+"Scripts/Utilities/Generate Sample Users/Script1775000000001.groovy"
+  bc1e2d9646c9d5eb 1-37
+"Test Suites/Utilities/Generate Sample Users.groovy"
+  bc1e2d9646c9d5eb 1-20
+.gitignore
+  bc1e2d9646c9d5eb 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "37a9053d936e30aa963a86984db063b29aa37871",
+  "prompts": {
+    "bc1e2d9646c9d5eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725c320d-f9ac-4472-b193-d33cafceb452",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 161,
+      "total_deletions": 36,
+      "accepted_lines": 134,
+      "overriden_lines": 1,
+      "messages_url": "https://usegitai.com/cas/f64193159eab51f8653f040fedf78ac06916c63544e8f904b583bf399a04f79b"
+    }
+  }
+}
