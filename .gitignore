@@ -3,6 +3,7 @@ bin/
 build/
 Libs/
 .gradle/
+Drivers/katalon_generated_*.jar
 
 # Generated parallel suites (output of the utility — regenerate, don't track)
 Test Suites/Generated/

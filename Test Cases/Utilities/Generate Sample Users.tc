@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Generates an arbitrary number of fake user rows into Data Files/sample_users.csv using the Datafaker library.</description>
+   <name>Generate Sample Users</name>
+   <tag></tag>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>b2c3d4e5-0001-4000-8000-000000000010</testCaseGuid>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>b2c3d4e5-0001-4000-8000-000000000011</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>b2c3d4e5-0001-4000-8000-000000000012</variableId>
+   </variableLinks>
+   <variable>
+      <defaultValue>100</defaultValue>
+      <description>Number of user rows to generate</description>
+      <id>b2c3d4e5-0001-4000-8000-000000000011</id>
+      <masked>false</masked>
+      <name>numRows</name>
+   </variable>
+   <variable>
+      <defaultValue>'Data Files/sample_users.csv'</defaultValue>
+      <description>Output CSV file path (project-relative)</description>
+      <id>b2c3d4e5-0001-4000-8000-000000000012</id>
+      <masked>false</masked>
+      <name>outputPath</name>
+   </variable>
+</TestCaseEntity>
