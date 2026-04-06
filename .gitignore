@@ -26,3 +26,9 @@ console.properties
 
 # Claude Code local config
 .claude/
+
+# HyperExecute CLI working files
+.hyperexecute/
+hyperexecute-cli.log
+.updatedhyperexecute.yaml
+hyperexecuteupdate

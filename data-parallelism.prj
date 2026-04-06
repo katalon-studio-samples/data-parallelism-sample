@@ -9,7 +9,7 @@
    <freeLicense>false</freeLicense>
    <migratedVersion>5.9.0</migratedVersion>
    <modifiedEdition>ENTERPRISE</modifiedEdition>
-   <modifiedVersion>11.0.0</modifiedVersion>
+   <modifiedVersion>11.1.0</modifiedVersion>
    <pageLoadTimeout>0</pageLoadTimeout>
    <projectFileLocation>/Users/coty/Katalon Studio/data-parallelism/data-parallelism.prj</projectFileLocation>
    <sourceContent>

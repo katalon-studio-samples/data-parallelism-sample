@@ -1,0 +1,69 @@
+version: 0.1
+runson: win
+shell: bash
+autosplit: true
+concurrency: 2
+
+# Local headless Chrome on the worker never creates a LambdaTest session,
+# so scenarios get marked "skipped". This flag makes HyperExecute derive
+# scenario status from katalonc's exit code instead.
+scenarioCommandStatusOnly: true
+
+globalTimeout: 150
+testSuiteTimeout: 60
+
+runtime:
+  language: katalon
+  version: 11.0.1
+
+env:
+  SOURCE_SUITE: "Test Suites/Print Names"
+  NUM_PARTITIONS: "4"
+  KRE_API_KEY: ${{ .secrets.KRE_API_KEY }}
+
+# NOTE: Generation happens in `pre` (per-worker), not `globalPre`.
+# The custom Katalon runtime re-extracts the original upload onto each worker,
+# wiping out any files written during globalPre even with `cache: true`.
+# See hyperexecute-evaluation-report.md, "File and Cache Propagation" caveat.
+pre:
+  - echo "SOURCE_SUITE is [$(printenv SOURCE_SUITE)]"
+  # Generator script reads SOURCE_SUITE / NUM_PARTITIONS from the OS env directly
+  # via System.getenv(), so no -g_ flags needed.
+  - >-
+    katalonc -noSplash -runMode=console
+    -projectPath="$(pwd)/data-parallelism.prj"
+    -testSuitePath="Test Suites/Utilities/Create Parallel Suites"
+    -browserType="Chrome (headless)"
+    -apiKey="$(printenv KRE_API_KEY)"
+  - ls -la "Test Suites/Generated/" || echo "Generated folder does not exist"
+
+testDiscovery:
+  type: raw
+  mode: dynamic
+  command: |
+    ls "Test Suites/Generated/"*.ts \
+      | grep "Partition" \
+      | sed 's|\.ts$||'
+
+testRunnerCommand: >-
+  katalonc -noSplash -runMode=console
+  -projectPath="$PWD\data-parallelism.prj"
+  -testSuitePath="$test"
+  -browserType="Chrome (headless)"
+  -apiKey="$env:KRE_API_KEY"
+  -executionProfile="default"
+
+alwaysRunPostSteps: true
+
+mergeArtifacts: true
+uploadArtefacts:
+  - name: Reports
+    path:
+      - Reports/**
+
+retryOnFailure: true
+maxRetries: 2
+
+failFast:
+  maxNumberOfTests: 5
+  level: scenario

@@ -118,39 +118,50 @@ katalonc -noSplash -runMode=console \
 
 ---
 
-### Option B: Generate Partitions in globalPre, Then Auto-Split (Recommended)
+### Option B: Generate Partitions in `pre`, Then Auto-Split (Recommended)
 
-Eliminate the local step entirely. HyperExecute's `globalPre` runs once before distributing work, so partition generation happens in the cloud.
+Eliminate the local step entirely. HyperExecute's `pre` phase runs on each worker VM before test discovery, so partition generation happens in the cloud — on the same VM that will execute the tests.
 
-**hyperexecute.yaml:**
+**Why `pre` and not `globalPre`?** With a pinned Katalon runtime (`runtime.version`), worker VMs receive a fresh extraction of the original project upload. Files written during `globalPre` are NOT propagated to workers, even with `cache: true` — the custom-runtime workspace provisioning step blows them away. `pre` runs on the same VM as `testDiscovery` and `testRunnerCommand`, so generated files are guaranteed to be visible. See `hyperexecute-evaluation-report.md` for empirical verification.
+
+**Tradeoff:** every worker independently runs `katalonc` to generate partitions, costing ~30–60s of duplicated JVM startup per worker. Acceptable at low-to-moderate concurrency. At very high concurrency, see "Future optimization" below.
+
+**hyperexecute.yml:**
 
 ```yaml
-version: 0.2
+version: 0.1
 runson: win
+shell: bash
 autosplit: true
-concurrency: 100
+concurrency: 4
+
+# Local headless Chrome on the worker never creates a LambdaTest session,
+# so scenarios get marked "skipped" by default. This flag makes HyperExecute
+# derive scenario status from katalonc's exit code instead.
+scenarioCommandStatusOnly: true
 
 globalTimeout: 150
 testSuiteTimeout: 60
 
 runtime:
-  - language: katalon
+  language: katalon
+  version: 11.0.1
 
 env:
   SOURCE_SUITE: "Test Suites/Print Names"
-  NUM_PARTITIONS: "100"
+  NUM_PARTITIONS: "4"
+  KRE_API_KEY: ${{ .secrets.KRE_API_KEY }}
 
-globalPre:
-  mode: remote
-  commands:
-    # Generate 100 partitioned suites using the existing Katalon utility
-    - |
-      katalonc -noSplash -runMode=console \
-        -projectPath="${PWD}/data-parallelism.prj" \
-        -testSuitePath="Test Suites/Utilities/Create Parallel Suites" \
-        -apiKey="$KRE_API_KEY" \
-        -g_sourceTestSuiteId="$SOURCE_SUITE" \
-        -g_numberOfPartitions="$NUM_PARTITIONS"
+# Generation runs per-worker. The Create Parallel Suites Groovy script reads
+# SOURCE_SUITE / NUM_PARTITIONS from the OS environment via System.getenv(),
+# so no Katalon -g_ plumbing is needed.
+pre:
+  - >-
+    katalonc -noSplash -runMode=console
+    -projectPath="$(pwd)/data-parallelism.prj"
+    -testSuitePath="Test Suites/Utilities/Create Parallel Suites"
+    -browserType="Chrome (headless)"
+    -apiKey="$(printenv KRE_API_KEY)"
 
 testDiscovery:
   type: raw
@@ -160,13 +171,19 @@ testDiscovery:
       | grep "Partition" \
       | sed 's|\.ts$||'
 
-testRunnerCommand: |
-  katalonc -noSplash -runMode=console \
-    -projectPath="${PWD}/data-parallelism.prj" \
-    -testSuitePath="$test" \
-    -browserType="Chrome (headless)" \
-    -apiKey="$KRE_API_KEY" \
-    -executionProfile="default"
+# IMPORTANT: testRunnerCommand runs in PowerShell on Windows, not bash —
+# even with `shell: bash` set above. Use $env:VAR for OS env vars.
+# `$test` is a HyperExecute template injection (substituted before PowerShell
+# sees the command), so it works as a literal `$test` here.
+testRunnerCommand: >-
+  katalonc -noSplash -runMode=console
+  -projectPath="$PWD\data-parallelism.prj"
+  -testSuitePath="$test"
+  -browserType="Chrome (headless)"
+  -apiKey="$env:KRE_API_KEY"
+  -executionProfile="default"
+
+alwaysRunPostSteps: true
 
 mergeArtifacts: true
 uploadArtefacts:
@@ -187,11 +204,13 @@ failFast:
 ```bash
 # Single command -- everything happens in the cloud
 ./hyperexecute --user $LT_USERNAME --key $LT_ACCESS_KEY \
-  --config hyperexecute.yaml
+  --config hyperexecute.yml
 ```
 
-**Pros:** Fully self-contained -- one command triggers the entire pipeline.
-**Cons:** `globalPre` adds ~1-2 min for the partition generation step.
+**Pros:** Fully self-contained -- one command triggers the entire pipeline. Files generated where they're consumed, no cross-VM propagation problems.
+**Cons:** Partition generation runs N times (once per worker) instead of once. At high concurrency this becomes wasteful.
+
+**Future optimization for high concurrency:** when the duplicated `katalonc` startup becomes meaningful (e.g., 50+ workers), rewrite the partitioning logic as a standalone Python or bash script that doesn't require booting a JVM. Run it in `globalPre` (where its outputs would propagate cleanly because it doesn't depend on the Katalon runtime workspace) or directly in `pre` (where the lighter script makes duplication cheap).
 
 ---
 
@@ -299,8 +318,30 @@ uploadArtefacts:
 
 - Reuses the existing `Create Parallel Suites` utility unchanged
 - Fully self-contained (single `./hyperexecute` command)
-- `globalPre` runs partition generation once, then auto-split distributes the results
+- Each worker generates its own partitions in `pre`, then auto-split distributes the results
 - Easy to adjust -- change `NUM_PARTITIONS` and `concurrency` as needed
+
+## Platform Gotchas (learned the hard way)
+
+These quirks bit us during integration. The full reasoning is in `hyperexecute-evaluation-report.md`; this is the cheat sheet.
+
+1. **Custom runtime breaks `globalPre` file propagation.** With `runtime.version` pinned, files written during `globalPre` do not reach worker VMs even with `cache: true`. Workers receive a fresh extraction of the original upload. Generate files in `pre` instead.
+
+2. **`testRunnerCommand` is PowerShell on Windows**, regardless of `shell: bash`. Use `$env:VAR` for OS env vars, Windows-style paths, and `$PWD` (PowerShell) instead of `$(pwd)` (bash). All other phases (including `pre`, `globalPre`, `testDiscovery`, `post`) use bash via MSYS2 even on Windows.
+
+3. **HyperExecute's `$test` template variable is substituted before the shell sees it.** It looks like a bash/PowerShell variable in the YAML but isn't — write `$test` as a literal in `testRunnerCommand` and it just works on both platforms.
+
+4. **User-defined `env:` variables don't template-substitute in `testRunnerCommand`.** Only `$test` (the platform injection) does. For your own env vars, use `$env:VAR` (PowerShell) or `$(printenv VAR)` (bash).
+
+5. **Top-level `runson: win` does NOT cascade to `globalPre`.** Set `runson: win` explicitly inside `globalPre` (and likely `globalPost`) when using a Windows-only custom runtime, or you'll get `Runtime Setup Failed: custom katalon is not supported for os linux`.
+
+6. **"PARTIALLY COMPLETED" / scenarios marked "skipped" on success.** Happens when tests don't create LambdaTest sessions (e.g., local headless Chrome on the worker). Set `scenarioCommandStatusOnly: true` at the top level of the YAML to derive scenario status from the command's exit code instead.
+
+7. **Katalon `-g_VAR` flags only override existing `GlobalVariable`s defined in a profile.** If the variable isn't pre-declared in `Profiles/*.glbl`, the flag is silently ignored. To pass values into a Test Case from the CLI without GlobalVariable plumbing, have the script read `System.getenv("VAR")` directly. (This project's `Create Parallel Suites` script already does this for `SOURCE_SUITE` and `NUM_PARTITIONS`.)
+
+8. **Katalon `Data File` `dataSourceUrl` must be relative with `isInternalPath: true`** for the project to be portable across machines. Absolute paths like `/Users/...` or `C:\...` will fail on the worker VMs.
+
+9. **Use `-projectPath="$(pwd)/..."` (bash) or `-projectPath="$PWD\..."` (PowerShell)**, not just a relative path. KRE's project resolution behaves more reliably with an absolute path on HyperExecute workers.
 
 ## Scaling Guidelines
 

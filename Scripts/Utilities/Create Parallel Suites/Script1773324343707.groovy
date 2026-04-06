@@ -6,11 +6,17 @@ import groovy.xml.XmlUtil
 
 def projectDir = RunConfiguration.getProjectDir()
 
+// Allow OS env vars to override test case parameters. This lets CI systems
+// (e.g., HyperExecute) drive the utility without Katalon GlobalVariable plumbing.
+def sourceTestSuiteIdResolved = System.getenv('SOURCE_SUITE') ?: sourceTestSuiteId
+def numberOfPartitionsResolved = System.getenv('NUM_PARTITIONS') ?: numberOfPartitions
+
 // --- Validate inputs ---
-if (!sourceTestSuiteId) {
+if (!sourceTestSuiteIdResolved) {
 	KeywordUtil.markFailedAndStop('sourceTestSuiteId is required (e.g., "Test Suites/Print Names 1")')
 }
-int numPartitions = (numberOfPartitions ?: 2) as int
+def sourceTestSuiteId = sourceTestSuiteIdResolved
+int numPartitions = (numberOfPartitionsResolved ?: 2) as int
 if (numPartitions < 1) {
 	KeywordUtil.markFailedAndStop('numberOfPartitions must be >= 1')
 }

@@ -51,7 +51,7 @@
       <name>sourceTestSuiteId</name>
    </variable>
    <variable>
-      <defaultValue>3</defaultValue>
+      <defaultValue>2</defaultValue>
       <description>Number of parallel partitions to create</description>
       <id>a1b2c3d4-0001-4000-8000-000000000002</id>
       <masked>false</masked>
