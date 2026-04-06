@@ -1,0 +1,24 @@
+HYPEREXECUTE_INTEGRATION.md
+  bc1e2d9646c9d5eb 3,5,24,26,28,30-32,34,36,39-59,62,64,66,76,79-82,100,110,112,114,128,140-142,158,162,166
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "8a9d0b568574c95cfb2bb37eb654958da7ea259d",
+  "prompts": {
+    "bc1e2d9646c9d5eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725c320d-f9ac-4472-b193-d33cafceb452",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 51,
+      "total_deletions": 322,
+      "accepted_lines": 59,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/d591b2c66c87930549edf47b5f8cf4b38f1a4ddcbce4ae3656af50f6081fc932"
+    }
+  }
+}
