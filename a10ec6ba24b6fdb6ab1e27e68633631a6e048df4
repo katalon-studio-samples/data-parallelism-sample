@@ -1,0 +1,46 @@
+"Scripts/Utilities/Create Parallel Suites/Script1773324343707.groovy"
+  2a81296d1faaa692 3,11,15-21
+Keywords/com/katalon/dataparallelism/ParallelSuiteKeywords.groovy
+  2a81296d1faaa692 1-144
+Keywords/com/katalon/dataparallelism/ParallelSuiteBuilder.groovy
+  2a81296d1faaa692 1-163
+"Scripts/Utilities/Cleanup Parallel Suites/Script1773324344153.groovy"
+  2a81296d1faaa692 2-3
+build.gradle
+  2a81296d1faaa692 12-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "a10ec6ba24b6fdb6ab1e27e68633631a6e048df4",
+  "prompts": {
+    "2a81296d1faaa692": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7e02ee28-7b95-477d-9040-9235045ce584",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 326,
+      "total_deletions": 234,
+      "accepted_lines": 324,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/3f3356d689c8e870ae191de1f2b594114e1dabea7be0bed2427575cd11d6f6d4"
+    },
+    "bc1e2d9646c9d5eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725c320d-f9ac-4472-b193-d33cafceb452",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 8,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/d591b2c66c87930549edf47b5f8cf4b38f1a4ddcbce4ae3656af50f6081fc932"
+    }
+  }
+}
