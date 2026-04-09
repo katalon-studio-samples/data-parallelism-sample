@@ -10,3 +10,8 @@ repositories {
 dependencies {
   implementation 'net.datafaker:datafaker:2.5.4'
 }
+
+// Katalon Store plugin metadata. Run `./gradlew katalonPluginPackage` to
+// produce a distributable JAR under build/libs/.
+group = 'com.katalon.dataparallelism'
+version = '0.1.0'
