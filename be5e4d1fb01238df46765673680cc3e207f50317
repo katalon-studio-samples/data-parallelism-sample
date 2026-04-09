@@ -1,0 +1,38 @@
+README.md
+  e863824b9f5adf9c 5-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.6",
+  "base_commit_sha": "be5e4d1fb01238df46765673680cc3e207f50317",
+  "prompts": {
+    "bc1e2d9646c9d5eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725c320d-f9ac-4472-b193-d33cafceb452",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 8,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/d591b2c66c87930549edf47b5f8cf4b38f1a4ddcbce4ae3656af50f6081fc932"
+    },
+    "e863824b9f5adf9c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "63e81628-0080-497b-8e27-bf9e46b4c3a8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 0,
+      "accepted_lines": 2,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/aacbbf5c13da5666ba2eda9cf5f4c0d463bb05488bfc2939748fca9eb5aec455"
+    }
+  }
+}
