@@ -2,6 +2,8 @@
 
 Automatically partition a data-driven test suite into N slices and run them in parallel, reducing execution time proportionally.
 
+This project was inspired by [kmohit3021/katalon-databinding-parallelexecution](https://github.com/kmohit3021/katalon-databinding-parallelexecution), which explored the same idea of splitting a data-bound Katalon test suite for parallel execution.
+
 ## The Problem
 
 Katalon's test suite data binding runs rows sequentially. A suite with 100 rows of login data takes 100× the time of a single iteration — even when you have capacity to run multiple browser instances.
