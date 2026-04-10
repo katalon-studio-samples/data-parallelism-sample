@@ -1,0 +1,56 @@
+Keywords/com/katalon/dataparallelism/ParallelSuiteBuilder.groovy
+  71f7790db23f2c49 3-4,41-43,46,48-49,51,90,92,94-95,97-103,105-121,124-125
+README.md
+  71f7790db23f2c49 130-136
+Keywords/com/katalon/dataparallelism/ParallelSuiteKeywords.groovy
+  71f7790db23f2c49 73-80,85-86,92,98,119,124
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "62cb3bc8c21112e63260dab124ec70220cab52de",
+  "prompts": {
+    "0879da4e1b6e9c17": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3f17366-dbe5-43e7-a4ee-e03bea41d483",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 117,
+      "total_deletions": 8,
+      "accepted_lines": 88,
+      "overriden_lines": 6,
+      "messages_url": "https://usegitai.com/cas/00ce085ac355690c2b6cd326861e82b009c4a842288eabc88cd3f3e02ef5b65e"
+    },
+    "71f7790db23f2c49": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "644ab1fe-9882-46dd-9e4b-fe0e96e11b9b",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 64,
+      "total_deletions": 35,
+      "accepted_lines": 64,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/88d8cad66e4131afcfc5d2d3bd9ac270559e194ccf212b6bfde3f38acd728822"
+    },
+    "bc1e2d9646c9d5eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725c320d-f9ac-4472-b193-d33cafceb452",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 8,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/d591b2c66c87930549edf47b5f8cf4b38f1a4ddcbce4ae3656af50f6081fc932"
+    }
+  }
+}
