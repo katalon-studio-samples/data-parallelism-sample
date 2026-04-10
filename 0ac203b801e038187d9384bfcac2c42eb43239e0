@@ -1,0 +1,72 @@
+"Test Suites/Templates/Print Names - Excel.groovy"
+  71f7790db23f2c49 1-66
+"Test Cases/Utilities/Create Parallel Suites.tc"
+  71f7790db23f2c49 47,54
+"Test Suites/Templates/Print Names - CSV.ts"
+  71f7790db23f2c49 1-55
+"Test Suites/Templates/Print Names - Excel.ts"
+  71f7790db23f2c49 1-55
+"Test Suites/Templates/Print Names - Internal.groovy"
+  71f7790db23f2c49 1-66
+"Test Suites/Templates/Test Suite Collection Template.ts"
+  71f7790db23f2c49 1-41
+"Test Suites/Templates/Print Names - CSV.groovy"
+  71f7790db23f2c49 1-66
+"Test Suites/Templates/Print Names - Internal.ts"
+  71f7790db23f2c49 1-55
+"Test Suites/Templates/Print Names - SQLite.groovy"
+  71f7790db23f2c49 1-66
+"Test Suites/Templates/Print Names - SQLite.ts"
+  71f7790db23f2c49 1-55
+hyperexecute.yml
+  71f7790db23f2c49 20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "0ac203b801e038187d9384bfcac2c42eb43239e0",
+  "prompts": {
+    "0879da4e1b6e9c17": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3f17366-dbe5-43e7-a4ee-e03bea41d483",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 20,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/00ce085ac355690c2b6cd326861e82b009c4a842288eabc88cd3f3e02ef5b65e"
+    },
+    "71f7790db23f2c49": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "644ab1fe-9882-46dd-9e4b-fe0e96e11b9b",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 528,
+      "total_deletions": 3,
+      "accepted_lines": 545,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/670502c480269e8229f5643d078db87aa317ca54ac5e2988bc360b1c18cf2dd2"
+    },
+    "bc1e2d9646c9d5eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725c320d-f9ac-4472-b193-d33cafceb452",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 8,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/d591b2c66c87930549edf47b5f8cf4b38f1a4ddcbce4ae3656af50f6081fc932"
+    }
+  }
+}
