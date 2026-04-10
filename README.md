@@ -127,6 +127,13 @@ Rows are distributed as evenly as possible. When rows don't divide evenly, earli
 | 7 | 3 | 3, 2, 2 |
 | 100 | 5 | 20, 20, 20, 20, 20 |
 
+If `numberOfPartitions` exceeds the row count, the partition count is clamped to the number of rows so every partition gets at least one row. A warning is logged and fewer suites are generated than requested:
+
+| Total Rows | Requested Partitions | Actual Partitions | Distribution |
+|---|---|---|---|
+| 3 | 10 | 3 | 1, 1, 1 |
+| 1 | 5 | 1 | 1 |
+
 ## Limitations
 
 - **Single source suite**: Currently partitions one test suite at a time. To parallelize multiple suites, run the utility once per suite and build the collection manually, or combine the generated partitions.

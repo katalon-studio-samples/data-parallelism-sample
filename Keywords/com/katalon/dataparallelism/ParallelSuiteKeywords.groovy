@@ -44,7 +44,6 @@ class ParallelSuiteKeywords {
 		def sourceXml = sourceFile.text
 		def parsed = ParallelSuiteBuilder.parseSuite(sourceXml)
 		def sourceBaseName = parsed.baseName
-		def sourceGuid = parsed.suiteGuid
 		def dataLinks = parsed.dataLinks
 
 		println("Source suite: ${sourceBaseName}")
@@ -71,22 +70,32 @@ class ParallelSuiteKeywords {
 
 		def rangesPerData = [:]
 		testDataRowCounts.each { testDataId, rowCount ->
+			int effectivePartitions = Math.min(numberOfPartitions, rowCount as int)
+			if (effectivePartitions < numberOfPartitions) {
+				KeywordUtil.logWarning(
+					"Data '${testDataId}' has only ${rowCount} row(s) — " +
+					"clamping partitions from ${numberOfPartitions} to ${effectivePartitions}. " +
+					"Fewer suites will be generated than requested."
+				)
+			}
 			rangesPerData[testDataId] = ParallelSuiteBuilder.calculateRanges(rowCount as int, numberOfPartitions)
 			println("  Ranges for '${testDataId}': ${rangesPerData[testDataId]}")
 		}
+
+		// Actual partition count is driven by the smallest data source after clamping
+		int actualPartitions = rangesPerData.values().collect { it.size() }.min()
 
 		def outDir = new File(projectDir, outFolder)
 		outDir.mkdirs()
 
 		def generatedSuiteIds = []
-		for (int i = 0; i < numberOfPartitions; i++) {
+		for (int i = 0; i < actualPartitions; i++) {
 			def partNum = i + 1
 			def newSuiteName = "${sourceBaseName} - Partition ${partNum}"
 			def newSuiteId = "${outFolder}/${newSuiteName}"
 
 			def newXml = ParallelSuiteBuilder.buildPartitionXml(
-				sourceXml, sourceBaseName, sourceGuid, newSuiteName,
-				dataLinks, rangesPerData, i)
+				sourceXml, newSuiteName, dataLinks, rangesPerData, i)
 
 			def tsFile = new File(projectDir, "${newSuiteId}.ts")
 			tsFile.parentFile.mkdirs()
@@ -107,12 +116,12 @@ class ParallelSuiteKeywords {
 			collName, generatedSuiteIds, browser ?: 'Chrome', profileName ?: 'default')
 
 		println("\n--- Summary ---")
-		println("Generated ${numberOfPartitions} partitioned test suites in: ${outFolder}/")
+		println("Generated ${actualPartitions} partitioned test suites in: ${outFolder}/")
 		generatedSuiteIds.eachWithIndex { id, idx ->
 			println("  ${idx + 1}. ${id}")
 		}
 		println("Collection: ${collectionId}")
-		println("Execution mode: PARALLEL (max ${numberOfPartitions} concurrent)")
+		println("Execution mode: PARALLEL (max ${actualPartitions} concurrent)")
 		println("Browser: ${browser}, Profile: ${profileName}")
 
 		return collectionId

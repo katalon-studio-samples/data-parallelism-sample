@@ -1,6 +1,7 @@
 package com.katalon.dataparallelism
 
-import java.util.regex.Pattern
+import groovy.xml.StreamingMarkupBuilder
+import groovy.xml.XmlUtil
 
 /**
  * Pure logic for partitioning a data-bound Katalon test suite into N slices
@@ -37,13 +38,17 @@ def tearDownTestCase() {
 	 * Distributes totalRows across partitions, giving earlier partitions
 	 * the extra row when there is a remainder. Returns a list of "start-end"
 	 * strings using 1-based inclusive indexing.
+	 *
+	 * If totalRows < partitions, the number of partitions is clamped to
+	 * totalRows so every returned range contains at least one row.
 	 */
 	static List<String> calculateRanges(int totalRows, int partitions) {
+		int effectivePartitions = Math.min(partitions, totalRows)
 		def ranges = []
-		int base = totalRows.intdiv(partitions)
-		int remainder = totalRows % partitions
+		int base = totalRows.intdiv(effectivePartitions)
+		int remainder = totalRows % effectivePartitions
 		int start = 1
-		for (int i = 0; i < partitions; i++) {
+		for (int i = 0; i < effectivePartitions; i++) {
 			int size = base + (i < remainder ? 1 : 0)
 			int end = start + size - 1
 			ranges << "${start}-${end}".toString()
@@ -77,39 +82,47 @@ def tearDownTestCase() {
 	 * Produces the XML text for a single partition suite.
 	 *
 	 * @param sourceXml       the original suite XML
-	 * @param sourceBaseName  the source suite's <name>
-	 * @param sourceGuid      the source suite's <testSuiteGuid>
 	 * @param newSuiteName    target suite name
 	 * @param dataLinks       list of [oldLinkId, testDataId] maps
 	 * @param rangesPerData   map of testDataId -> List<String> of ranges
 	 * @param partitionIndex  0-based partition index
 	 */
-	static String buildPartitionXml(String sourceXml, String sourceBaseName, String sourceGuid,
-	                                String newSuiteName, List dataLinks,
+	static String buildPartitionXml(String sourceXml, String newSuiteName, List dataLinks,
 	                                Map<String, List<String>> rangesPerData, int partitionIndex) {
-		def newXml = sourceXml
+		def suite = new XmlSlurper().parseText(sourceXml)
 
-		newXml = newXml.replaceFirst(
-			"<name>${Pattern.quote(sourceBaseName)}</name>",
-			"<name>${newSuiteName}</name>"
-		)
+		suite.name[0].replaceBody(newSuiteName)
+		suite.testSuiteGuid[0].replaceBody(UUID.randomUUID().toString())
 
-		newXml = newXml.replace(
-			"<testSuiteGuid>${sourceGuid}</testSuiteGuid>",
-			"<testSuiteGuid>${UUID.randomUUID().toString()}</testSuiteGuid>"
-		)
-
-		dataLinks.each { info ->
-			def newLinkId = UUID.randomUUID().toString()
-			def rangeStr = rangesPerData[info.testDataId][partitionIndex]
-			newXml = newXml.replace(info.oldLinkId, newLinkId)
-			newXml = newXml.replaceAll(
-				"(?s)<iterationEntity>\\s*<iterationType>[^<]*</iterationType>\\s*<value>[^<]*</value>\\s*</iterationEntity>",
-				"<iterationEntity>\n            <iterationType>RANGE</iterationType>\n            <value>${rangeStr}</value>\n         </iterationEntity>"
-			)
+		// Build a lookup so each testDataLink gets its own new ID and range
+		def updates = dataLinks.collectEntries { info ->
+			[(info.oldLinkId): [
+				newId   : UUID.randomUUID().toString(),
+				rangeStr: rangesPerData[info.testDataId][partitionIndex]
+			]]
 		}
 
-		return newXml
+		suite.testCaseLink.each { tcLink ->
+			tcLink.testDataLink.each { tdLink ->
+				def oldId = tdLink.id.text()
+				def update = updates[oldId]
+				if (update) {
+					tdLink.id[0].replaceBody(update.newId)
+					tdLink.iterationEntity.iterationType[0].replaceBody('RANGE')
+					tdLink.iterationEntity.value[0].replaceBody(update.rangeStr)
+					// variableLink elements in the same testCaseLink reference the
+					// testDataLink by ID — keep them in sync with the new ID.
+					tcLink.variableLink.each { vLink ->
+						if (vLink.testDataLinkId.text() == oldId) {
+							vLink.testDataLinkId[0].replaceBody(update.newId)
+						}
+					}
+				}
+			}
+		}
+
+		def writable = new StreamingMarkupBuilder().bind { mkp.yield suite }
+		return XmlUtil.serialize(writable)
 	}
 
 	/**
