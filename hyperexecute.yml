@@ -17,7 +17,7 @@ runtime:
   version: 11.0.1
 
 env:
-  SOURCE_SUITE: "Test Suites/Print Names"
+  SOURCE_SUITE: "Test Suites/Templates/Print Names - CSV"
   NUM_PARTITIONS: "10"
   KRE_API_KEY: ${{ .secrets.KRE_API_KEY }}
 

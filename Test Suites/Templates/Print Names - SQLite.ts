@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuiteEntity>
    <description></description>
-   <name>Print Names</name>
+   <name>Print Names - SQLite</name>
    <tag></tag>
    <isRerun>false</isRerun>
    <mailRecipient></mailRecipient>
@@ -10,9 +10,9 @@
    <pageLoadTimeoutDefault>true</pageLoadTimeoutDefault>
    <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
    <rerunImmediately>true</rerunImmediately>
-   <testSuiteGuid>303aff15-1d42-4f54-b2c9-c65d5e4cacc0</testSuiteGuid>
+   <testSuiteGuid>e169c8ba-e83c-4329-952c-635198265642</testSuiteGuid>
    <testCaseLink>
-      <guid>4f9ae42e-ac2e-447c-862b-9de688bd9596</guid>
+      <guid>2d73dcf2-32de-447a-a822-243f6568536f</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <iterationNameVariable>
@@ -25,28 +25,28 @@
       <testCaseId>Test Cases/Print Names</testCaseId>
       <testDataLink>
          <combinationType>ONE</combinationType>
-         <id>406a5354-b985-4504-883b-5937ed78dd11</id>
+         <id>fe6b79bb-039b-4b6d-9805-1f8f3007616f</id>
          <iterationEntity>
             <iterationType>ALL</iterationType>
             <value>1-5</value>
          </iterationEntity>
-         <testDataId>Data Files/User Data</testDataId>
+         <testDataId>Data Files/User Data - SQLite</testDataId>
       </testDataLink>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
       <variableLink>
-         <testDataLinkId>406a5354-b985-4504-883b-5937ed78dd11</testDataLinkId>
+         <testDataLinkId>fe6b79bb-039b-4b6d-9805-1f8f3007616f</testDataLinkId>
          <type>DATA_COLUMN</type>
          <value>firstName</value>
          <variableId>b45451eb-9b17-427f-95ad-2930b1437299</variableId>
       </variableLink>
       <variableLink>
-         <testDataLinkId>406a5354-b985-4504-883b-5937ed78dd11</testDataLinkId>
+         <testDataLinkId>fe6b79bb-039b-4b6d-9805-1f8f3007616f</testDataLinkId>
          <type>DATA_COLUMN</type>
          <value>lastName</value>
          <variableId>dc5843cf-c4e3-4d6e-8a1f-d37d0567a2f4</variableId>
       </variableLink>
       <variableLink>
-         <testDataLinkId>406a5354-b985-4504-883b-5937ed78dd11</testDataLinkId>
+         <testDataLinkId>fe6b79bb-039b-4b6d-9805-1f8f3007616f</testDataLinkId>
          <type>DATA_COLUMN</type>
          <value>email</value>
          <variableId>9191d3cd-6f4b-41bc-bdd4-8e43622a1dd8</variableId>

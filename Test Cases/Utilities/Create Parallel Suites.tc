@@ -44,14 +44,14 @@
       <variableId>a1b2c3d4-0001-4000-8000-000000000006</variableId>
    </variableLinks>
    <variable>
-      <defaultValue>'Test Suites/Print Names'</defaultValue>
+      <defaultValue>'Test Suites/Templates/Print Names - SQLite'</defaultValue>
       <description>Path to the source test suite with full data bindings</description>
       <id>a1b2c3d4-0001-4000-8000-000000000001</id>
       <masked>false</masked>
       <name>sourceTestSuiteId</name>
    </variable>
    <variable>
-      <defaultValue>2</defaultValue>
+      <defaultValue>5</defaultValue>
       <description>Number of parallel partitions to create</description>
       <id>a1b2c3d4-0001-4000-8000-000000000002</id>
       <masked>false</masked>
