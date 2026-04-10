@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DataFileEntity>
    <description></description>
-   <name>User Data</name>
+   <name>User Data - CSV</name>
    <tag></tag>
    <connectionProperties/>
    <containsHeaders>true</containsHeaders>
