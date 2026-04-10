@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataFileEntity>
+   <description>Template for User Data - SQLite.dat. Run Test Cases/Utilities/Materialize SQLite Data File to generate the real .dat with an absolute project path substituted for __PROJECT_DIR__.</description>
+   <name>User Data Template - SQLite</name>
+   <tag></tag>
+   <connectionProperties/>
+   <containsHeaders>true</containsHeaders>
+   <csvSeperator></csvSeperator>
+   <dataFileGUID>e5f6a7b8-0003-4000-8000-000000000030</dataFileGUID>
+   <dataSourceUrl>jdbc:sqlite:__PROJECT_DIR__/Data Files/sample_users.db?open_mode=1</dataSourceUrl>
+   <driver>DBData</driver>
+   <driverClassName>org.sqlite.JDBC</driverClassName>
+   <isInternalPath>false</isInternalPath>
+   <password></password>
+   <query>select firstName, lastName, email from users</query>
+   <secureUserAccount>false</secureUserAccount>
+   <sheetName></sheetName>
+   <user></user>
+   <usingGlobalDBSetting>false</usingGlobalDBSetting>
+</DataFileEntity>

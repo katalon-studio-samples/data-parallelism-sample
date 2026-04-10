@@ -9,6 +9,7 @@ repositories {
 
 dependencies {
   implementation 'net.datafaker:datafaker:2.5.4'
+  implementation 'org.xerial:sqlite-jdbc:3.46.1.3'
 }
 
 // Katalon Store plugin metadata. Run `./gradlew katalonPluginPackage` to

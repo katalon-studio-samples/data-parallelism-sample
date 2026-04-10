@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Generates Data Files/User Data - SQLite.dat from its .template by substituting the current project's absolute path. Run once after cloning, or from a suite @SetUp.</description>
+   <name>Materialize SQLite Data File</name>
+   <tag></tag>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>d4e5f6a7-0002-4000-8000-000000000020</testCaseGuid>
+</TestCaseEntity>

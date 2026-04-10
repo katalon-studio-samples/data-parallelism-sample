@@ -8,6 +8,10 @@ Drivers/katalon_generated_*.jar
 # Generated parallel suites (output of the utility — regenerate, don't track)
 Test Suites/Generated/
 
+# Materialized SQLite data file — absolute path is machine-specific.
+# Generated from User Data - SQLite.dat.template by Test Cases/Utilities/Materialize SQLite Data File.
+Data Files/User Data - SQLite.dat
+
 # IDE metadata
 .classpath
 .project
