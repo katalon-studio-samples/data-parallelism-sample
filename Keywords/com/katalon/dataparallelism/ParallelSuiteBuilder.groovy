@@ -1,5 +1,6 @@
 package com.katalon.dataparallelism
 
+import groovy.xml.MarkupBuilder
 import groovy.xml.StreamingMarkupBuilder
 import groovy.xml.XmlUtil
 
@@ -128,32 +129,34 @@ def tearDownTestCase() {
 	/**
 	 * Builds a TestSuiteCollectionEntity XML that runs the given suite IDs in PARALLEL.
 	 */
-	static String buildCollectionXml(String collName, List<String> suiteIds, String browser, String profileName) {
-		def xml = new StringBuilder()
-		xml.append('<?xml version="1.0" encoding="UTF-8"?>\n')
-		xml.append('<TestSuiteCollectionEntity>\n')
-		xml.append('   <description></description>\n')
-		xml.append("   <name>${collName}</name>\n")
-		xml.append('   <tag></tag>\n')
-		xml.append('   <delayBetweenInstances>0</delayBetweenInstances>\n')
-		xml.append('   <executionMode>PARALLEL</executionMode>\n')
-		xml.append("   <maxConcurrentInstances>${suiteIds.size()}</maxConcurrentInstances>\n")
-		xml.append('   <testSuiteRunConfigurations>\n')
-		suiteIds.each { suiteId ->
-			xml.append('      <TestSuiteRunConfiguration>\n')
-			xml.append('         <configuration>\n')
-			xml.append('            <groupName>Web Desktop</groupName>\n')
-			xml.append("            <profileName>${profileName}</profileName>\n")
-			xml.append('            <requireConfigurationData>false</requireConfigurationData>\n')
-			xml.append("            <runConfigurationId>${browser}</runConfigurationId>\n")
-			xml.append('         </configuration>\n')
-			xml.append('         <runEnabled>true</runEnabled>\n')
-			xml.append("         <testSuiteEntity>${suiteId}</testSuiteEntity>\n")
-			xml.append('      </TestSuiteRunConfiguration>\n')
+	static String buildCollectionXml(String collName, List<String> suiteIds, String browser, String profile) {
+		def writer = new StringWriter()
+		def xml = new MarkupBuilder(writer)
+		xml.expandEmptyElements = true
+		xml.mkp.xmlDeclaration(version: '1.0', encoding: 'UTF-8')
+		xml.TestSuiteCollectionEntity {
+			description()
+			name(collName)
+			tag()
+			delayBetweenInstances(0)
+			executionMode('PARALLEL')
+			maxConcurrentInstances(suiteIds.size())
+			testSuiteRunConfigurations {
+				suiteIds.each { suiteId ->
+					TestSuiteRunConfiguration {
+						configuration {
+							groupName('Web Desktop')
+							profileName(profile)
+							requireConfigurationData(false)
+							runConfigurationId(browser)
+						}
+						runEnabled(true)
+						testSuiteEntity(suiteId)
+					}
+				}
+			}
 		}
-		xml.append('   </testSuiteRunConfigurations>\n')
-		xml.append('</TestSuiteCollectionEntity>\n')
-		return xml.toString()
+		return writer.toString()
 	}
 
 	/**
