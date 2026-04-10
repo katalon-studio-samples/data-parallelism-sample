@@ -1,0 +1,62 @@
+"Test Cases/Utilities/Materialize SQLite Data File.tc"
+  0879da4e1b6e9c17 1-9
+.gitignore
+  0879da4e1b6e9c17 11-14
+"Data Files/User Data Template - SQLite.dat"
+  71f7790db23f2c49 1-2,5-8,10-20
+  0879da4e1b6e9c17 3-4,9
+"Scripts/Utilities/Materialize SQLite Data File/Script1775000000002.groovy"
+  0879da4e1b6e9c17 1-4,8-30,35-36,38-39
+  71f7790db23f2c49 5-7,31-34,37
+build.gradle
+  0879da4e1b6e9c17 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "fd6db2140966404272fbd027aa2150fe40734210",
+  "prompts": {
+    "0879da4e1b6e9c17": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3f17366-dbe5-43e7-a4ee-e03bea41d483",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 68,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/00ce085ac355690c2b6cd326861e82b009c4a842288eabc88cd3f3e02ef5b65e"
+    },
+    "71f7790db23f2c49": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "644ab1fe-9882-46dd-9e4b-fe0e96e11b9b",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 47,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/c4b0083a42ec641e4e0bc7f48303faee46cb55ea96fc5a736f340bf5b1aa864a"
+    },
+    "bc1e2d9646c9d5eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725c320d-f9ac-4472-b193-d33cafceb452",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Coty Rosenblath",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 8,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/d591b2c66c87930549edf47b5f8cf4b38f1a4ddcbce4ae3656af50f6081fc932"
+    }
+  }
+}
