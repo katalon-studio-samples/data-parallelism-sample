@@ -4,31 +4,37 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a **Katalon Studio** project (v11.0.0 Enterprise, WEBUI type) that provides a utility for parallelizing data-driven test suites. It partitions a single data-bound test suite into N slices and generates a parallel test suite collection, enabling concurrent execution across multiple browser instances.
+This is a **Katalon Studio** demo/test project for the `katalon-data-parallelism` plugin. It demonstrates how to use the plugin's keywords to partition a data-bound test suite into N slices and run them concurrently via a parallel test suite collection.
+
+The plugin itself lives in a sibling project: `../katalon-data-parallelism/`.
 
 ## Architecture
 
-The core logic lives in two Groovy scripts under `Scripts/`:
+This project **consumes** the data-parallelism plugin via a JAR in `Plugins/`. It contains no custom keywords of its own — all partitioning logic comes from the plugin.
 
-- **`Scripts/Utilities/Create Parallel Suites/`** — The main utility. Reads a source `.ts` (test suite XML), counts data rows via `findTestData()`, calculates balanced row ranges, and generates N partitioned `.ts` files plus a `TestSuiteCollectionEntity` XML for parallel execution. All output goes to a `Generated/` subfolder.
-- **`Scripts/Utilities/Cleanup Parallel Suites/`** — Deletes generated `.ts` and `.groovy` files from the output folder.
+### Scripts
+
+- **`Scripts/Utilities/Create Parallel Suites/`** — Calls `ParallelSuiteKeywords.createParallelSuites()` from the plugin.
+- **`Scripts/Utilities/Cleanup Parallel Suites/`** — Calls `ParallelSuiteKeywords.cleanupParallelSuites()` from the plugin.
+- **`Scripts/Utilities/Generate Sample Users/`** — Generates CSV test data using DataFaker.
+- **`Scripts/Utilities/Materialize SQLite Data File/`** — Materializes a machine-specific `.dat` file from a template.
 - **`Scripts/Print Names/`** — Sample test case that prints data-bound variables (`firstName`, `lastName`, `email`).
+
+### Plugin Dependency
+
+The plugin JAR is at `Plugins/katalon-data-parallelism-0.1.0.jar`. To update it, rebuild from the plugin project:
+
+```bash
+cd "../katalon-data-parallelism"
+JAVA_HOME=$(/usr/libexec/java_home -v 17) ./gradlew katalonPluginPackage
+cp build/libs/katalon-data-parallelism-*-all.jar "../data-parallelism/Plugins/katalon-data-parallelism-0.1.0.jar"
+```
 
 Key file types:
 - `.ts` — XML files defining test suites (`TestSuiteEntity`) and test suite collections (`TestSuiteCollectionEntity`). These contain data bindings, iteration ranges, and execution configuration.
 - `.tc` — XML files defining test cases with variable declarations.
 - `.groovy` — Companion scripts for both test cases (in `Scripts/`) and test suites (lifecycle hooks).
 - `.dat` — Katalon internal test data definitions pointing to source files (e.g., CSV).
-
-## How Partitioning Works
-
-The Create Parallel Suites script:
-1. Parses source suite XML with `XmlSlurper` to extract data binding info
-2. Uses `findTestData()` API to get actual row counts (works with any data source type)
-3. Distributes rows evenly — earlier partitions get +1 row when there's a remainder
-4. Performs text-based XML manipulation (regex replacements) on the source XML to set `RANGE` iteration type and row ranges per partition
-5. Generates new GUIDs for each partitioned suite and data link
-6. Builds a collection XML with `PARALLEL` execution mode
 
 ## Running the Utilities
 

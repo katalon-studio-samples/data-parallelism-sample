@@ -1,8 +1,8 @@
-# Data Parallelism for Katalon Studio
+# Data Parallelism for Katalon Studio — Demo Project
 
-Automatically partition a data-driven test suite into N slices and run them in parallel, reducing execution time proportionally.
+Demo project for the [Data Parallelism](https://store.katalon.com/product/486/Data-Parallelism) plugin. It shows how to use the plugin to partition a data-driven test suite into N slices and run them in parallel, reducing execution time proportionally.
 
-This project was inspired by [kmohit3021/katalon-databinding-parallelexecution](https://github.com/kmohit3021/katalon-databinding-parallelexecution), which explored the same idea of splitting a data-bound Katalon test suite for parallel execution.
+The plugin was inspired by [kmohit3021/katalon-databinding-parallelexecution](https://github.com/kmohit3021/katalon-databinding-parallelexecution), which explored the same idea of splitting a data-bound Katalon test suite for parallel execution.
 
 ## The Problem
 
@@ -26,12 +26,25 @@ Katalon's test suite data binding runs rows sequentially. A suite with 100 rows 
        (3 concurrent instances)
 ```
 
-The utility reads your source test suite, counts the bound data rows (using Katalon's `findTestData()` API — works with any data source type), divides them into balanced ranges, and generates:
+The plugin reads your source test suite, counts the bound data rows (using Katalon's `findTestData()` API — works with any data source type), divides them into balanced ranges, and generates:
 
 - **N partitioned `.ts` files** — each identical to the source but scoped to a row range
 - **A test suite collection** — configured for `PARALLEL` execution with N concurrent instances
 
 All generated files go into a separate `Generated/` folder. The originals are never modified.
+
+## Setup
+
+Install the **Data Parallelism** plugin via one of:
+
+- **Katalon Store** (recommended) — install from [store.katalon.com/product/486/Data-Parallelism](https://store.katalon.com/product/486/Data-Parallelism), then reload plugins in Katalon Studio.
+- **Manual JAR** — place the plugin JAR in your project's `Plugins/` directory. To build it from source:
+
+  ```bash
+  cd "../katalon-data-parallelism"
+  JAVA_HOME=$(/usr/libexec/java_home -v 17) ./gradlew katalonPluginPackage
+  cp build/libs/katalon-data-parallelism-*-all.jar "../data-parallelism/Plugins/"
+  ```
 
 ## Parameters
 
